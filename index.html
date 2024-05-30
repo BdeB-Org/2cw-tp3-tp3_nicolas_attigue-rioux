@@ -10,7 +10,7 @@
     <header>
         <h1>Galerie de l'Artiste</h1>
         <nav>
-            <a href="///C:/TP/Web/2cw-tp3-tp3_nicolas_attigue-rioux/index.html?id=1">Accueil</a>
+            <a href="index.html?id=1">Accueil</a>
             <a href="about.html">À propos</a>
             <a href="contact.html">Contact</a>
         </nav>
@@ -25,5 +25,35 @@
         </div>
     </main>
     <script src="scripts/details.js"></script>
+    <script>
+    function changeId(increment) {
+        try {
+            // Vérifiez si l'URL actuelle a déjà un paramètre 'id'
+            var currentUrl = window.location.href;
+            var url = new URL(currentUrl);
+    
+            // Obtenez la valeur actuelle de 'id' et assurez-vous qu'elle est valide
+            var currentId = parseInt(url.searchParams.get("id"), 10);
+            if (isNaN(currentId)) {
+                throw new Error('Invalid ID');
+            }
+    
+            // Calculez le nouvel ID en considérant les cas de boucle
+            var newId = currentId + increment;
+            if (newId > 6) {
+                newId = 1;  // Loop back to 1 if incremented beyond 6
+            } else if (newId < 1) {
+                newId = 6;  // Loop back to 6 if decremented below 1
+            }
+    
+            // Définissez le nouvel ID et redirigez
+            url.searchParams.set("id", newId);
+            window.location.href = url.href;
+        } catch (error) {
+            // En cas d'erreur, redirigez vers l'URL de base avec 'id=1'
+            window.location.href = 'index.html?id=4';
+        }
+    }
+</script>
 </body>
 </html>
